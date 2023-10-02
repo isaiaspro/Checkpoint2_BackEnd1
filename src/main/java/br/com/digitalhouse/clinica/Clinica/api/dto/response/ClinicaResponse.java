@@ -2,13 +2,16 @@ package br.com.digitalhouse.clinica.Clinica.api.dto.response;
 
 import br.com.digitalhouse.clinica.Clinica.domain.entity.Contato;
 import br.com.digitalhouse.clinica.Clinica.domain.entity.Endereco;
+import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CNPJ;
 
 import java.util.UUID;
 @Getter
 @Setter
-public class ClinicaListResponse {
+public class ClinicaResponse {
+
     private UUID id;
     private String nome;
     private String cnpj;

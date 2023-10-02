@@ -2,10 +2,7 @@ package br.com.digitalhouse.clinica.Clinica.api.controller;
 
 
 import br.com.digitalhouse.clinica.Clinica.api.dto.request.DentistaRequest;
-import br.com.digitalhouse.clinica.Clinica.api.dto.response.ContatoResponse;
-import br.com.digitalhouse.clinica.Clinica.api.dto.response.DentistaListResponse;
-import br.com.digitalhouse.clinica.Clinica.api.dto.response.DentistaResponse;
-import br.com.digitalhouse.clinica.Clinica.api.dto.response.DentistaWrapperResponse;
+import br.com.digitalhouse.clinica.Clinica.api.dto.response.*;
 import br.com.digitalhouse.clinica.Clinica.domain.entity.Contato;
 import br.com.digitalhouse.clinica.Clinica.domain.entity.Dentista;
 import br.com.digitalhouse.clinica.Clinica.domain.service.DentistaService;
@@ -57,6 +54,7 @@ public class DentistaController {
             dentistaListResponse.setDataNascimento(dentista.getDataNascimento());
             dentistaListResponse.setEspecialidade(dentista.getEspecialidade());
             dentistaListResponse.setSexo(dentista.getSexo());
+            dentistaListResponse.setContato(dentista.getContato());
             return dentistaListResponse;
         }).toList());
         return ResponseEntity.ok(dentistaWrapperResponse);
@@ -112,8 +110,8 @@ public class DentistaController {
 
         dentistaResponse.setId(dentista.getId());
         ContatoResponse contato = new ContatoResponse();
-        contato.setEmail(dentista.getContato().getEmail());
         contato.setId(dentista.getContato().getId());
+        contato.setEmail(dentista.getContato().getEmail());
         contato.setTelefone(dentista.getContato().getTelefone());
 
         dentistaResponse.setContato(dentistaResponse.getContato());
