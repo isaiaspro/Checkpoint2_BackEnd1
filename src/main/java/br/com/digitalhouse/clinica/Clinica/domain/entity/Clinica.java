@@ -34,6 +34,7 @@ public class Clinica {
             foreignKey =
             @ForeignKey(name = "fk_endereco_clinica"))
     private Endereco endereco;
+
 @OneToOne
 @JoinColumn(
         name = "contato_id",

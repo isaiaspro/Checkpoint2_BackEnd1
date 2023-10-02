@@ -1,9 +1,8 @@
 package br.com.digitalhouse.clinica.Clinica.api.dto.response;
 
-import br.com.digitalhouse.clinica.Clinica.api.dto.request.ContatoRequest;
+import br.com.digitalhouse.clinica.Clinica.domain.entity.Contato;
+import br.com.digitalhouse.clinica.Clinica.domain.entity.Endereco;
 import br.com.digitalhouse.clinica.Clinica.domain.entity.EspecialidadeEnum;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,5 +17,6 @@ public class DentistaResponse {
     private LocalDate dataNascimento;
     private EspecialidadeEnum Especialidade;
     private String sexo;
-    private ContatoRequest contato;
+    private Contato contato;
+    private Endereco endereco;
 }

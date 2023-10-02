@@ -22,6 +22,8 @@ public class Endereco {
     private String cidade;
     @Column(length = 100)
     private String estado;
+    @Column(length = 10)
+    private String cep;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
