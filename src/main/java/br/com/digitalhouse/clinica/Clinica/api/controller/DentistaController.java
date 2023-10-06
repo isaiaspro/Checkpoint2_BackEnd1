@@ -71,7 +71,7 @@ public class DentistaController {
 
 
     @PostMapping
-    ResponseEntity<?> criarDentista(@RequestBody @Valid DentistaRequest request) {
+    ResponseEntity<UUID> criarDentista(@RequestBody @Valid DentistaRequest request) {
         Dentista dentista = new Dentista();
         dentista.setNome(request.getNome());
         dentista.setDataNascimento(request.getDataNascimento());
@@ -81,6 +81,8 @@ public class DentistaController {
         Contato contato = new Contato();
         contato.setEmail(request.getContato().getEmail());
         contato.setTelefone(request.getContato().getTelefone());
+
+
 
         dentista.setContato(contato);
         Dentista dentistaCriado = dentistaService.criarDentista(dentista);
@@ -109,12 +111,14 @@ public class DentistaController {
         dentistaResponse.setSexo(dentista.getSexo());
 
         dentistaResponse.setId(dentista.getId());
-        ContatoResponse contato = new ContatoResponse();
-        contato.setId(dentista.getContato().getId());
-        contato.setEmail(dentista.getContato().getEmail());
-        contato.setTelefone(dentista.getContato().getTelefone());
 
-        dentistaResponse.setContato(dentistaResponse.getContato());
+        DentistaResponse.Contato contatoResponse = new DentistaResponse.Contato();
+        contatoResponse.setId(dentista.getContato().getId());
+        contatoResponse.setEmail(dentista.getContato().getEmail());
+        contatoResponse.setTelefone(dentista.getContato().getTelefone());
+
+
+        dentistaResponse.setContato(contatoResponse);
         return dentistaResponse;
 
     }

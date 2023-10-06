@@ -1,5 +1,6 @@
 package br.com.digitalhouse.clinica.Clinica.api.dto.request;
 
+import br.com.digitalhouse.clinica.Clinica.domain.entity.Contato;
 import br.com.digitalhouse.clinica.Clinica.domain.entity.EspecialidadeEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -20,5 +21,5 @@ public class DentistaRequest {
     @NotNull
     private String sexo;
     @NotNull
-    private ContatoRequest contato;
+    private Contato contato;
 }

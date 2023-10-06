@@ -4,6 +4,7 @@ import br.com.digitalhouse.clinica.Clinica.domain.entity.Clinica;
 import br.com.digitalhouse.clinica.Clinica.domain.repository.ClinicaRepository;
 import br.com.digitalhouse.clinica.Clinica.domain.service.ClinicaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +33,11 @@ public class ClinicaServiceImpl implements ClinicaService {
 
     @Override
     public List<Clinica> buscarClinicasTermo(String termo) {
+        return this.clinicaRepository.findAll();
+    }
+
+    @Override
+    public List<Clinica> buscarTodasAsClinicas() {
         return this.clinicaRepository.findAll();
     }
 

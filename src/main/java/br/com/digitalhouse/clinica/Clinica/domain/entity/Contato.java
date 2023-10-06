@@ -3,11 +3,13 @@ package br.com.digitalhouse.clinica.Clinica.domain.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-
+@Slf4j
 @Getter
 @Setter
 @Entity
@@ -21,10 +23,27 @@ public class Contato {
     private String telefone;
     @Column(name = "fax")
     private String fax;
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    @Transient
+    @Column(columnDefinition = "DATETIME")
+    private Instant createdAt;
+    @Transient
+    @Column(columnDefinition = "DATETIME")
+    private Instant updatedAt;
+    @PrePersist
+    protected void onCreate() {
+        createdAt = Instant.now();
+        updatedAt = Instant.now();
+        log.info("New email registered: {}", email);
+        log.info("New phone registered: {}", telefone);
+
+    }
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = Instant.now();
+        log.info("Updated email contact: {}", email);
+        log.info("Updated phone contact: {}", telefone);
+
+    }
 
 
 }

@@ -13,6 +13,8 @@ public interface ClinicaService {
 
     List<Clinica> buscarClinicasTermo(String termo);
 
+    List<Clinica> buscarTodasAsClinicas();
+
     Clinica atualizarClinica(Clinica clinica);
 
 

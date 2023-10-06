@@ -1,17 +1,23 @@
 package br.com.digitalhouse.clinica.Clinica.domain.entity;
+import java.time.Instant;
 import java.util.HashSet;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.br.CNPJ;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
-
+@Slf4j
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Clinica {
 @Id
 @GeneratedValue(strategy = GenerationType.UUID)
@@ -22,11 +28,6 @@ public class Clinica {
     private String cnpj;
     private String razao_social;
     private String descricao;
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "endereco_id",
@@ -35,18 +36,25 @@ public class Clinica {
             @ForeignKey(name = "fk_endereco_clinica"))
     private Endereco endereco;
 
-@OneToOne
-@JoinColumn(
-        name = "contato_id",
-        referencedColumnName = "id",
-        foreignKey =
-        @ForeignKey(name = "fk_contato_clinica"))
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(
+            name = "contato_id",
+            referencedColumnName = "id",
+            foreignKey =
+            @ForeignKey(name = "fk_contato_clinica"))
     private Contato contato;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "clinica_dentista",
-            joinColumns = @JoinColumn(name = "clinica_id"),
-            inverseJoinColumns = @JoinColumn(name = "dentista_id"))
-    private Set<Dentista> dentistas = new HashSet<>();
+    private Instant createdAt;
+    private Instant updatedAt;
+    @PrePersist
+    protected void onCreate() {
+        createdAt = Instant.now();
+        updatedAt = Instant.now();
+        log.info("New clinic created: {}", nome);
+    }
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = Instant.now();
+        log.info("Clinic updated : {}", nome);
+    }
 }

@@ -1,25 +1,22 @@
 package br.com.digitalhouse.clinica.Clinica.api.dto.response;
 
-import br.com.digitalhouse.clinica.Clinica.domain.entity.Contato;
-import br.com.digitalhouse.clinica.Clinica.domain.entity.Endereco;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.UUID;
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class ClinicaResponse {
+public class PacienteResponse {
 
     private UUID id;
     private String nome;
-    private String cnpj;
-    private String razao_social;
-    private String descricao;
+    private LocalDate data_nascimento;
+    private String sexo;
     private Endereco endereco;
     private Contato contato;
+
+
 
     @Getter
     @Setter
@@ -43,6 +40,4 @@ public class ClinicaResponse {
         private String telefone;
         private String email;
     }
-
-
 }
