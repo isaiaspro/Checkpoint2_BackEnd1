@@ -5,6 +5,7 @@ import br.com.digitalhouse.clinica.Clinica.api.dto.request.DentistaRequest;
 import br.com.digitalhouse.clinica.Clinica.api.dto.response.*;
 import br.com.digitalhouse.clinica.Clinica.domain.entity.Contato;
 import br.com.digitalhouse.clinica.Clinica.domain.entity.Dentista;
+import br.com.digitalhouse.clinica.Clinica.domain.entity.Paciente;
 import br.com.digitalhouse.clinica.Clinica.domain.service.DentistaService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -42,7 +46,7 @@ public class DentistaController {
 
     }
 
-
+/*
     @GetMapping
     ResponseEntity<DentistaWrapperResponse> buscarTodosPorTermo(@RequestParam String termo) {
         List<Dentista> dentistas = dentistaService.buscarDentistasTermo(termo);
@@ -59,7 +63,26 @@ public class DentistaController {
         }).toList());
         return ResponseEntity.ok(dentistaWrapperResponse);
     }
+*/
 
+    @GetMapping
+    ResponseEntity<DentistaWrapperResponse> buscarTodosOsDentistas() {
+        List<Dentista> dentistas = dentistaService.buscarTodosOsDentistas();
+        List<DentistaListResponse> dentistasListResponse = dentistas.stream().map(dentista -> {
+            DentistaListResponse response = new DentistaListResponse();
+            response.setId(UUID.fromString(dentista.getId().toString()));
+            response.setNome(dentista.getNome());
+            response.setEspecialidade(dentista.getEspecialidade());
+            response.setSexo(dentista.getSexo());
+            response.setContato(dentista.getContato());
+            return response;
+        }).collect(Collectors.toList());
+
+        DentistaWrapperResponse wrapperResponse = new DentistaWrapperResponse();
+        wrapperResponse.setDentistas(dentistasListResponse);
+
+        return ResponseEntity.ok(wrapperResponse);
+    }
 
     @PutMapping("{id}")
     public ResponseEntity<String> atualizarDentista(@PathVariable UUID id, @RequestBody Dentista dentista) {
@@ -85,6 +108,10 @@ public class DentistaController {
 
 
         dentista.setContato(contato);
+
+        Instant now = ZonedDateTime.now().toInstant();
+        dentista.setCreatedAt(now);
+        dentista.setUpdatedAt(now);
         Dentista dentistaCriado = dentistaService.criarDentista(dentista);
         return ResponseEntity.ok(dentistaCriado.getId());
 

@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -114,6 +116,10 @@ public class PacienteController {
 
         paciente.setEndereco(endereco);
         paciente.setContato(contato);
+
+        Instant now = ZonedDateTime.now().toInstant();
+        paciente.setCreatedAt(now);
+        paciente.setUpdatedAt(now);
         Paciente pacienteCriado = pacienteService.criarPaciente(paciente);
         return ResponseEntity.ok(pacienteCriado.getId());
 

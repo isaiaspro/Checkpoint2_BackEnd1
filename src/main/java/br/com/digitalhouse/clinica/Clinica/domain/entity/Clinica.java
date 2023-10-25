@@ -1,6 +1,5 @@
 package br.com.digitalhouse.clinica.Clinica.domain.entity;
-import java.time.Instant;
-import java.util.HashSet;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +8,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.br.CNPJ;
 
-import java.time.LocalDateTime;
-import java.util.Set;
+import java.time.Instant;
 import java.util.UUID;
 @Slf4j
 @Getter
@@ -50,11 +48,11 @@ public class Clinica {
     protected void onCreate() {
         createdAt = Instant.now();
         updatedAt = Instant.now();
-        log.info("New clinic created: {}", nome);
+        log.info("Nova Clinica criada: {}", nome);
     }
     @PreUpdate
     protected void onUpdate() {
         updatedAt = Instant.now();
-        log.info("Clinic updated : {}", nome);
+        log.info("Clinica atualizada : {}", nome);
     }
 }

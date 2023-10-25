@@ -30,6 +30,11 @@ public class DentistaServiceImpl implements DentistaService {
     }
 
     @Override
+    public List<Dentista> buscarTodosOsDentistas() {
+        return this.dentistaRepository.findAll();
+    }
+
+    @Override
     public List<Dentista> buscarDentistasTermo(String termo) {
         return this.dentistaRepository.findAll();
     }

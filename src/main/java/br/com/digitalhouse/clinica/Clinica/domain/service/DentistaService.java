@@ -10,6 +10,8 @@ public interface DentistaService {
 
     Dentista buscarDentistaPorId(UUID id);
 
+    List<Dentista> buscarTodosOsDentistas();
+
     List<Dentista> buscarDentistasTermo(String termo);
 
     Dentista atualizarDentista(Dentista dentista);

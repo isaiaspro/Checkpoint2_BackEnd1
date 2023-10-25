@@ -6,7 +6,6 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.UUID;
 @Slf4j
 @Entity
@@ -36,11 +35,11 @@ public class Endereco {
     protected void onCreate() {
         createdAt = Instant.now();
         updatedAt = Instant.now();
-        log.info("New registered address: {}, {},{},{},{}",logradouro, bairro, cidade,estado, cep);
+        log.info("Novo endereço registrado: {}, {},{},{},{}",logradouro, bairro, cidade,estado, cep);
     }
     @PreUpdate
     protected void onUpdate() {
         updatedAt = Instant.now();
-        log.info("Updated address: {}, {}", bairro, cidade);
+        log.info("Endereco atualizado: {}, {}", bairro, cidade);
     }
 }

@@ -2,7 +2,9 @@ package br.com.digitalhouse.clinica.Clinica.domain.entity;
 
 import jakarta.persistence.*;
 import jdk.jfr.BooleanFlag;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,6 +16,8 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Consulta {
     @Id
     @GeneratedValue (strategy = GenerationType.UUID)
@@ -43,7 +47,7 @@ public class Consulta {
             @ForeignKey(name = "fk_clinica_id"))
     private Clinica clinica;
 
-    private LocalDate data_conslta;
+    private LocalDate data_consulta;
     private LocalDateTime created_at;
     private LocalDateTime updated_at;
     private String descricao;
@@ -53,26 +57,28 @@ public class Consulta {
     private Boolean cancelado;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(
-            name = "patient_id",
+            name = "paciente_id",
             referencedColumnName = "id",
             foreignKey =
-            @ForeignKey(name = "fk_patient_appointment"))
+            @ForeignKey(name = "fk_paciente_cnsulta"))
     @Transient
     @Column(columnDefinition = "DATETIME")
     private Instant createdAt;
     @Transient
     @Column(columnDefinition = "DATETIME")
     private Instant updatedAt;
+
+
     @PrePersist
     protected void onCreate() {
         createdAt = Instant.now();
         updatedAt = Instant.now();
-        log.info("New appointment registered for the patient: {}", paciente.getNome());
+        log.info("Nova consulta cadastrada para: {}", paciente.getNome());
     }
     @PreUpdate
     protected void onUpdate() {
         updatedAt = Instant.now();
-        log.info("Updated appointment for the patient: {}", paciente.getNome());
+        log.info("Consulta Autalizada para: {}", paciente.getNome());
     }
 }
 

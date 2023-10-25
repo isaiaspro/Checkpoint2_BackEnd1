@@ -6,7 +6,6 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Slf4j
@@ -33,15 +32,15 @@ public class Contato {
     protected void onCreate() {
         createdAt = Instant.now();
         updatedAt = Instant.now();
-        log.info("New email registered: {}", email);
-        log.info("New phone registered: {}", telefone);
+        log.info("Novo email registrado: {}", email);
+        log.info("Novo telefone registrado: {}", telefone);
 
     }
     @PreUpdate
     protected void onUpdate() {
         updatedAt = Instant.now();
-        log.info("Updated email contact: {}", email);
-        log.info("Updated phone contact: {}", telefone);
+        log.info("Email atualizado: {}", email);
+        log.info("Telefone Atualizado: {}", telefone);
 
     }
 

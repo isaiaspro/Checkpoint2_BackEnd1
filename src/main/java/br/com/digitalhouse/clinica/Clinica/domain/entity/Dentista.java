@@ -7,9 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 @Slf4j
 @Getter
@@ -48,12 +45,12 @@ private EspecialidadeEnum Especialidade;
     protected void onCreate() {
         createdAt = Instant.now();
         updatedAt = Instant.now();
-        log.info("New dentist created: {}", nome);
+        log.info("Novo dentista criado: {}", nome);
     }
     @PreUpdate
     protected void onUpdate() {
         updatedAt = Instant.now();
-        log.info("Dentist updated : {}", nome);
+        log.info("Dentista atualizado : {}", nome);
     }
 
 }
